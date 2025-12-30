@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkShort Pro 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="bg-slate-900 text-white min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <a href="index.html" class="flex items-center gap-2">
+                        <div class="bg-gradient-to-r from-cyan-500 to-blue-600 p-2 rounded-lg">
+                            <i class="fa-solid fa-bolt text-white"></i>
+                        </div>
+                        <span
+                            class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">LinkShort</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html"
+                            class="text-white bg-slate-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">Inicio</a>
+
+                        <a href="questions.html"
+                            class="text-slate-300 hover:text-white hover:bg-slate-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">Preguntas
+                            Frecuentes</a>
+
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" onclick="toggleMobileMenu()"
+                        class="text-slate-400 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out md:hidden bg-slate-800"
+            id="mobileMenu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-b border-slate-700">
+                <a href="index.html"
+                    class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-700 transition-colors">Inicio</a>
+                <a href="questions.html"
+                    class="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-700 transition-colors">Preguntas
+                    Frecuentes</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center p-10">
+
+        <div class="max-w-2xl w-full bg-slate-800 rounded-3xl shadow-2xl border border-slate-700 p-8">
+            <!-- Header -->
+            <div class="text-center mb-6">
+                <h1
+                    class="text-4xl font-extrabold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                    Acortador de Enlaces
+                </h1>
+            </div>
+
+            <!-- Description Section -->
+            <div class="mb-10 text-center">
+                <p class="text-slate-400 text-lg leading-relaxed">
+                    Transforma tus enlaces largos y pesados en links cortos y elegantes con un solo clic. Ideal para
+                    redes sociales, blogs o presentaciones.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 mt-6">
+                    <div class="flex items-center gap-2 text-slate-500 text-sm">
+                        <span
+                            class="w-6 h-6 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-white">1</span>
+                        <span>Pega tu link</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-500 text-sm">
+                        <span
+                            class="w-6 h-6 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-white">2</span>
+                        <span>Genera</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-500 text-sm">
+                        <span
+                            class="w-6 h-6 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-white">3</span>
+                        <span>¡Listo!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Section -->
+            <div class="space-y-4">
+                <div class="relative group">
+                    <input type="url" id="urlInput" placeholder="Pega tu link largo aquí..."
+                        class="w-full bg-slate-900 border border-slate-700 rounded-2xl py-4 px-6 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-lg pl-14 pr-24">
+                    <i class="fa-solid fa-link absolute left-6 top-5 text-slate-500 text-xl"></i>
+
+                    <button onclick="pasteFromClipboard()"
+                        class="absolute right-3 top-2 bottom-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-cyan-400 px-4 rounded-xl text-sm font-bold flex items-center gap-2 transition-all border border-slate-700 hover:border-cyan-500/50">
+                        <i class="fa-solid fa-paste"></i>
+                        Pegar
+                    </button>
+                </div>
+
+                <button onclick="acortarLink()"
+                    class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 py-4 rounded-2xl font-bold text-xl transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-cyan-500/20">
+                    Generar Enlace Corto
+                </button>
+            </div>
+
+            <!-- Result Section (Hidden by default) -->
+            <div id="resultCard"
+                class="hidden mt-10 p-6 bg-slate-900/50 border border-cyan-500/30 rounded-2xl animate-pulse">
+                <p class="text-sm text-slate-400 uppercase tracking-widest font-bold mb-2">Tu enlace listo:</p>
+                <div class="flex items-center justify-between gap-4">
+                    <span id="shortUrl" class="text-cyan-400 text-xl font-mono truncate"></span>
+                    <button onclick="copyToClipboard()"
+                        class="bg-slate-700 hover:bg-slate-600 p-3 rounded-xl transition-colors">
+                        <i class="fa-regular fa-copy text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- History -->
+            <div class="mt-12">
+                <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left text-slate-500"></i> Historial Reciente
+                </h2>
+                <div id="historyList" class="space-y-3 max-h-60 overflow-y-auto pr-2">
+                    <!-- Se llenará con JS -->
+                    <p class="text-slate-500 text-center italic py-4"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 border-t border-slate-700 mt-12 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Column 1: Info -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="bg-gradient-to-r from-cyan-500 to-blue-600 p-2 rounded-lg text-sm">
+                            <i class="fa-solid fa-bolt text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">LinkShort</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed ">
+                        Reduciendo la distancia entre tú y tu audiencia, un enlace a la vez. Potencia tu presencia
+                        digital con LinkShort.
+                    </p>
+                </div>
+
+                <!-- Column 2: Misión -->
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Mi misión</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Ofrecer herramientas simples y potentes para que creadores y empresas compartan contenido de
+                        manera más efectiva.
+                    </p>
+                </div>
+
+
+                <!-- Column 4: Redes -->
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Conectame</h3>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 bg-slate-700 hover:bg-cyan-600 flex items-center justify-center rounded-xl transition-all group">
+                            <i class="fa-brands fa-twitter group-hover:scale-110 transition-transform"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-slate-700 hover:bg-cyan-600 flex items-center justify-center rounded-xl transition-all group">
+                            <i class="fa-brands fa-github group-hover:scale-110 transition-transform"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-slate-700 hover:bg-cyan-600 flex items-center justify-center rounded-xl transition-all group">
+                            <i class="fa-brands fa-linkedin-in group-hover:scale-110 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-slate-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <p class="text-slate-500 text-sm">
+                    &copy; 2026 LinkShort Pro. Todos los derechos reservados.
+                </p>
+                <p class="text-slate-500 text-sm flex items-center justify-center gap-2">
+                    Hecho por <span class="text-slate-300 font-bold">notexer</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica simple para simular el backend por ahora
+        function acortarLink() {
+            const input = document.getElementById('urlInput');
+            if (!input.value) return;
+
+            const code = Math.random().toString(36).substring(2, 8);
+            const short = `localhost:8000/${code}`;
+
+            // Mostrar resultado
+            document.getElementById('resultCard').classList.remove('hidden');
+            document.getElementById('resultCard').classList.remove('animate-pulse');
+            document.getElementById('shortUrl').innerText = short;
+
+            // Agregar al historial
+            const history = document.getElementById('historyList');
+            if (history.innerText.includes('Aún no hay')) history.innerHTML = '';
+
+            const item = document.createElement('div');
+            item.className = "flex justify-between items-center bg-slate-700/30 p-4 rounded-xl border border-slate-700";
+            item.innerHTML = `
+                <div class="truncate pr-4">
+                    <p class="text-cyan-400 font-bold">/${code}</p>
+                    <p class="text-xs text-slate-500 truncate">${input.value}</p>
+                </div>
+                <i class="fa-solid fa-chevron-right text-slate-600 text-xs"></i>
+            `;
+            history.prepend(item);
+            input.value = '';
+        }
+
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('urlInput').value = text;
+            } catch (err) {
+                console.error('Error al pegar:', err);
+                alert('No se pudo acceder al portapapeles. Asegúrate de dar permisos.');
+            }
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('shortUrl').innerText;
+            navigator.clipboard.writeText(text);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('menuIcon');
+
+            if (menu.classList.contains('max-h-0')) {
+                menu.classList.replace('max-h-0', 'max-h-96');
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                menu.classList.replace('max-h-96', 'max-h-0');
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        }
+    </script>
+</body>
+
+</html>
