@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 import random
 import string
@@ -17,10 +17,11 @@ async def read_index():
         return f.read()
 
 @app.post("/shorten")
-async def shorten_url(original_url: str):
+async def shorten_url(original_url: str, request: Request):
     code = generate_code()
     urls[code] = original_url
-    return {"short_url": f"http://localhost:8000/{code}", "code": code}
+    base_url = str(request.base_url)
+    return {"short_url": f"{base_url}{code}", "code": code}
 
 @app.get("/{code}")
 async def redirect_to_url(code: str):
