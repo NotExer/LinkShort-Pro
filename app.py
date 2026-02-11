@@ -1,9 +1,14 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
 import random
 import string
+import os
 
 app = FastAPI()
+
+# Mount static files
+app.mount("/img", StaticFiles(directory="img"), name="img")
 
 # Base de datos en memoria
 urls = {}
