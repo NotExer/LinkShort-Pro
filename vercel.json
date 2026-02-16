@@ -15,10 +15,6 @@
         {
             "src": "img/**",
             "use": "@vercel/static"
-        },
-        {
-            "src": "styles.css",
-            "use": "@vercel/static"
         }
     ],
     "routes": [
@@ -29,10 +25,6 @@
         {
             "src": "/questions.html",
             "dest": "/questions.html"
-        },
-        {
-            "src": "/styles.css",
-            "dest": "/styles.css"
         },
         {
             "src": "/img/(.*)",
