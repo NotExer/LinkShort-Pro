@@ -8,6 +8,11 @@
 
 ---
 
+## 📺 Preview
+
+**🌐 Visita el sitio:**  [https://link-short-pro.vercel.app](https://link-short-pro.vercel.app)
+
+
 ## ✨ Características
 
 * 🚀 **Backend de alto rendimiento:** Construido con FastAPI para una latencia mínima.
@@ -39,3 +44,4 @@ Sigue estos pasos para probar el proyecto en tu máquina local:
 ```bash
 git clone https://github.com/NotExer/LinkShort-Pro
 cd LinkShort-Pro
+python app.py
